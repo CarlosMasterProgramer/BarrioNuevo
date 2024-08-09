@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron text-center bg-light py-5 mb-4" style="background: url('static/images/app.jpeg') no-repeat center center; background-size: cover; height: 400px; color: white;">
+  <div class="container">
+    <h1 class="display-4">Bienvenidos a Barrio Nuevo</h1>
+    <p class="lead">Encuentra las mejores propiedades para comprar o arrendar.</p>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    {% for property in properties %}
+    <div class="col-md-3"> <!-- Cambiamos de col-md-4 a col-md-3 para 4 propiedades por fila -->
+      <div class="card mb-4 shadow-sm">
+        <img src="{{ url_for('static', filename='uploads/' ~ property.main_image) }}" class="card-img-top" alt="Imagen de Propiedad">
+        <div class="card-body">
+          <h5 class="card-title">{{ property.title }}</h5>
+          <p class="card-text">{{ property.description }}</p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Tipo:</strong> {{ property.type }}</li>
+            <li class="list-group-item"><strong>Habitaciones:</strong> {{ property.rooms }}</li>
+            <li class="list-group-item"><strong>Baños:</strong> {{ property.bathrooms }}</li>
+            <li class="list-group-item"><strong>Metros Cuadrados:</strong> {{ property.square_meters }} m²</li>
+          </ul>
+          <p class="card-text"><h5>{{ property.type }} - ${{ property.price }}</h5></p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a href="{{ url_for('property_detail', id=property.id) }}" class="btn btn-sm btn-outline-primary">Ver más</a>
+              <a href="{{ url_for('edit_property', id=property.id) }}" class="btn btn-sm btn-outline-secondary">Editar</a>
+              <form action="{{ url_for('delete_property', id=property.id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Borrar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Mostrado por: {{ property.owner_name }}</small>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

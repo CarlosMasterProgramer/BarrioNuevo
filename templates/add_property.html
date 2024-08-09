@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2 class="my-4">Agregar Nueva Propiedad</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="title">Título</label>
+      <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="price">Precio</label>
+      <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+    </div>
+    <div class="form-group">
+      <label for="type">Tipo de Propiedad</label>
+      <select class="form-control" id="type" name="type" required>
+        <option value="Casa">Casa</option>
+        <option value="Departamento">Departamento</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="rooms">Habitaciones</label>
+      <input type="number" class="form-control" id="rooms" name="rooms" required>
+    </div>
+    <div class="form-group">
+      <label for="bathrooms">Baños</label>
+      <input type="number" class="form-control" id="bathrooms" name="bathrooms" required>
+    </div>
+    <div class="form-group">
+      <label for="square_meters">Metros Cuadrados</label>
+      <input type="number" step="0.01" class="form-control" id="square_meters" name="square_meters" required>
+    </div>
+    <div class="form-group">
+      <label for="owner_name">Nombre del Propietario o Agente</label>
+      <input type="text" class="form-control" id="owner_name" name="owner_name" required>
+    </div>
+    <div class="form-group">
+      <label for="main_image">Imagen Principal</label>
+      <input type="file" class="form-control-file" id="main_image" name="main_image" required>
+    </div>
+    <div class="form-group">
+      <label for="additional_images">Imágenes Adicionales (Opcional)</label>
+      <input type="file" class="form-control-file" id="additional_images" name="additional_images" multiple>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Propiedad</button>
+  </form>
+</div>
+{% endblock %}
