@@ -16,12 +16,17 @@ class Property(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    price = db.Column(db.Float, nullable=False)
+    price = db.Column(db.String(50), nullable=False)
     type = db.Column(db.String(50), nullable=False)  # Casa o Departamento
     rooms = db.Column(db.Integer, nullable=False)
     bathrooms = db.Column(db.Integer, nullable=False)
     square_meters = db.Column(db.Float, nullable=False)
     main_image = db.Column(db.String(100), nullable=False)
+    venta = db.Column(db.String(50), nullable=False)
+    arriendo = db.Column(db.String(50), nullable=False)
+    destacado = db.Column(db.String(50), nullable=False)
+    direccion = db.Column(db.String(150), nullable=False)
+    comuna = db.Column(db.String(50), nullable=False)
     owner_name = db.Column(db.String(100), nullable=False)  # Nombre del agente o propietario
     additional_images = db.relationship('Image', backref='property', lazy=True)
 
@@ -46,6 +51,16 @@ def index():
     properties = Property.query.all()
     return render_template('index.html', properties=properties)
 
+@app.route('/arriendos')
+def arriendos():
+    properties = Property.query.all()
+    return render_template('index.html', properties=properties)
+
+@app.route('/ventas')
+def ventas():
+    properties = Property.query.all()
+    return render_template('index.html', properties=properties)
+
 @app.route('/property/add', methods=['GET', 'POST'])
 def add_property():
     if request.method == 'POST':
@@ -57,9 +72,13 @@ def add_property():
         br = request.form['bathrooms']
         agent = request.form['owner_name']
         sm = request.form['square_meters']
+        destacado = request.form['destacado']
+        arrendada = request.form['arrendada']
+        venta = request.form['venta']
+        direccion = request.form['direccion']
+        comuna = request.form['comuna']
         main_image = photos.save(request.files['main_image'])
-        new_property = Property(title=title, description=description,rooms=rooms,bathrooms=br,owner_name=agent,square_meters=sm, price=price, type=typee, main_image=main_image)
-        
+        new_property = Property(title=title, description=description,arriendo=arrendada,destacado=destacado,venta=venta,rooms=rooms,bathrooms=br,owner_name=agent,square_meters=sm, price=price, type=typee, main_image=main_image,direccion=direccion,comuna=comuna)
         db.session.add(new_property)
         db.session.commit()
         
@@ -74,6 +93,8 @@ def add_property():
         return redirect(url_for('index'))
     return render_template('add_property.html')
 
+
+
 @app.route('/property/edit/<int:id>', methods=['GET', 'POST'])
 def edit_property(id):
     property = Property.query.get_or_404(id)
@@ -86,6 +107,11 @@ def edit_property(id):
         property.bathrooms = request.form['bathrooms']
         property.owner_name = request.form['owner_name']
         property.square_meters = request.form['square_meters']
+        property.arriendo = request.form['arrendada']
+        property.venta = request.form['venta']
+        property.destacado = request.form['destacado']
+        property.comuna = request.form['comuna']
+        property.direccion = request.form['direccion']
         if 'main_image' in request.files and request.files['main_image'].filename != '':
             main_image = photos.save(request.files['main_image'])
             property.main_image = main_image

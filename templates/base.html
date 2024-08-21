@@ -7,9 +7,9 @@
   <title>Barrio Nuevo - Propiedades</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+  <nav class="navbar navbar-expand-lg navbar-dark shadow">
     <div class="container">
-      <a href="{{ url_for('index') }}"><img src="static/images/banner.png"  style="width:120px"></a>
+      <a href="{{ url_for('index') }}"><img src="static/images/new_log.png"  style="width:250px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"   
    aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,50 +17,49 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="{{   
+            <a class="nav-link active"  style="color:black"href="{{   
    url_for('index') }}">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('add_property')   
+            <a class="nav-link" style="color:black"href="{{ url_for('add_property')   
    }}">Agregar Propiedad</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"   
-   aria-expanded="false">
-              Más opciones
-            </a>
-            <ul class="dropdown-menu   
-   dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Acción 1</a></li>
-              <li><a class="dropdown-item"   
-   href="#">Otra acción</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Algo más aquí</a></li>
-            </ul>
+          <li class="nav-item">
+            <a class="nav-link" style="color:black"href="{{ url_for('ventas')   
+   }}">Ventas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="color:black"href="{{ url_for('arriendos')   
+   }}">Arriendo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="color:black"href="{{ url_for('add_property')   
+   }}">Entreganos tu propiedad !</a>
           </li>
         </ul>
       </div>
     </div>   
   
   </nav>
-  <div class="container mt-4">
+
     {% block content %}{% endblock %}
-  </div>
   <div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <div class="col-md-4 d-flex align-items-center">
+      <div class="col-md-6 d-flex align-items-center">
         <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
           <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
         </a>
-        <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+        <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Barrio Nuevo Propiedades, Tomas Moro 1846, Las Condes</span>
+
       </div>
-  
+
       <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
         <li class="ms-3"><a class="text-body-secondary" href="https://www.instagram.com/portalbarrionuevo/?hl=es"><i class="fab fa-instagram fa-2x"></i></a></li>
         <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fab fa-whatsapp fa-2x"></i></a></li>
         <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fab fa-tiktok fa-2x"></i></a></li>
         <li class="ms-3"><a class="text-body-secondary" href="https://web.facebook.com/profile.php?id=100027966349228"><i class="fab fa-facebook fa-2x"></i></a></li>
       </ul>
+      <img src="url('static/images/new_log.png')">
     </footer>
   </div>
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

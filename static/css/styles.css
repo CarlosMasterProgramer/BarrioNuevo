@@ -45,7 +45,7 @@ body {
 
 .btn-outline-primary:hover {
   background-color: #007bff;
-  color: white;
+  color: black;
 }
 
 .btn-outline-secondary {
@@ -55,5 +55,5 @@ body {
 
 .btn-outline-secondary:hover {
   background-color: #6c757d;
-  color: white;
+  color: black;
 }
