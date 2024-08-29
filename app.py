@@ -11,6 +11,7 @@ db = SQLAlchemy(app)
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app)
+app.static_folder = 'static'
 
 class Property(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,6 +30,7 @@ class Property(db.Model):
     comuna = db.Column(db.String(50), nullable=False)
     owner_name = db.Column(db.String(100), nullable=False)  # Nombre del agente o propietario
     additional_images = db.relationship('Image', backref='property', lazy=True)
+    
 
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -44,22 +46,37 @@ def delete_property(id):
     property_to_delete = Property.query.get_or_404(id)
     db.session.delete(property_to_delete)
     db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('admin'))
 
 @app.route('/')
 def index():
     properties = Property.query.all()
     return render_template('index.html', properties=properties)
 
+@app.route('/adminBMC132')
+def admin():
+    properties = Property.query.all()
+    return render_template('admin_index.html', properties=properties)
+
 @app.route('/arriendos')
 def arriendos():
-    properties = Property.query.all()
+    properties = Property.query.filter_by(venta="Arriendo").all()
     return render_template('index.html', properties=properties)
 
 @app.route('/ventas')
 def ventas():
-    properties = Property.query.all()
+    properties = Property.query.filter_by(venta="Venta").all()
     return render_template('index.html', properties=properties)
+
+@app.route('/contactanos_withid/<int:id>')
+def contactanos_withid(id):
+    property = Property.query.get_or_404(id)
+    return render_template('contact_property.html',property=property)
+
+@app.route('/contactanos')
+def contactanos():
+    properties = Property.query.all()
+    return render_template('contact.html', properties=properties)
 
 @app.route('/property/add', methods=['GET', 'POST'])
 def add_property():
@@ -90,7 +107,7 @@ def add_property():
                     db.session.add(property_image)
         
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('admin'))
     return render_template('add_property.html')
 
 
@@ -124,13 +141,15 @@ def edit_property(id):
                     db.session.add(property_image)
         
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('admin'))
     return render_template('edit_property.html', property=property)
 
 @app.route('/property/<int:id>')
 def property_detail(id):
     property = Property.query.get_or_404(id)
     return render_template('property_detail.html', property=property)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -40,10 +40,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
               <a href="{{ url_for('property_detail', id=property.id) }}" class="btn btn-sm btn-outline-primary">Ver más</a>
-              <a href="{{ url_for('edit_property', id=property.id) }}" class="btn btn-sm btn-outline-secondary">Editar</a>
-              <form action="{{ url_for('delete_property', id=property.id) }}" method="POST" style="display:inline;">
-                <button type="submit" class="btn btn-sm btn-outline-danger">Borrar</button>
-              </form>
+              
             </div>
           </div>
         </div>
